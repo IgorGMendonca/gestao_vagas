@@ -13,10 +13,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "job")
 @Data
+
+// The @Builder annotation produces complex builder APIs for your classes.
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class JobEntity {
     
     @Id
