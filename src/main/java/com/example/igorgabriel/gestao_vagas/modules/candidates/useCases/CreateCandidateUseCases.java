@@ -16,7 +16,7 @@ public class CreateCandidateUseCases {
     public CandidateEntity execute(CandidateEntity candidateEntity) {
         this.candidateRepository.findByUsernameOrEmail(candidateEntity.getUserName(), candidateEntity.getEmail())
                 .ifPresent((user) -> {
-                    throw new UserFoundException("User already exists");
+                    throw new UserFoundException("User already exists" + user.getUserName());
                 });
 
         return this.candidateRepository.save(candidateEntity);
