@@ -29,5 +29,5 @@ public class AuthCandidateController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
-    
+
 }

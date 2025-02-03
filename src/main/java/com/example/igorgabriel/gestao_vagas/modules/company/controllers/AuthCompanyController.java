@@ -15,16 +15,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/company")
 public class AuthCompanyController {
-    
-    @Autowired
-    private AuthCompanyUseCases authCompanyUseCases;    
 
-    @PostMapping("/company")
-    public ResponseEntity<Object> create(@Valid @RequestBody AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+    @Autowired
+    private AuthCompanyUseCases authCompanyUseCases;
+
+    @PostMapping("/auth")
+    public ResponseEntity<Object> create(@Valid @RequestBody AuthCompanyDTO authCompanyDTO)
+            throws AuthenticationException {
         try {
             var token = this.authCompanyUseCases.execute(authCompanyDTO);
             return ResponseEntity.ok().body(token);
@@ -32,5 +32,5 @@ public class AuthCompanyController {
             return ResponseEntity.badRequest().body("Invalid credentials");
         }
     }
-    
+
 }

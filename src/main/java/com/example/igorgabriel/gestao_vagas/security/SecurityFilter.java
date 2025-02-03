@@ -19,33 +19,38 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    
+
     @Autowired
     private JWTProvider jwtProvider;
 
-
-    /* @Override is an annotation that informs the compiler that the element is meant to override an element declared in a superclass.
-     * The doFilterInternal method is called by the filter chain to apply the filter to the request and response. */
+    /*
+     * @Override is an annotation that informs the compiler that the element is
+     * meant to override an element declared in a superclass.
+     * The doFilterInternal method is called by the filter chain to apply the filter
+     * to the request and response.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-                String header = request.getHeader("Authorization");
+        String header = request.getHeader("Authorization");
 
-                if(header != null) {
-                   var subjectToken = this.jwtProvider.validateToken(header);
+        if (request.getRequestURI().startsWith("/company/") && header != null) {
+            var subjectToken = this.jwtProvider.validateToken(header);
 
-                   if(subjectToken.isEmpty()) {
-                       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                       return;
-                   }
-                   request.setAttribute("company_id", subjectToken);
-                   UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
-
-                   SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-
-                filterChain.doFilter(request, response);
+            if (subjectToken.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
             }
-    
+
+            request.setAttribute("company_id", subjectToken);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(subjectToken,
+                    null, Collections.emptyList());
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        filterChain.doFilter(request, response);
+    }
+
 }
