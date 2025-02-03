@@ -41,14 +41,20 @@ public class AuthCandidateUseCases {
             throw new AuthenticationException();
         }
 
+        var expires_in = Instant.now().plus(Duration.ofHours(2));
+
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         var token = JWT.create().withSubject(candidate.getId().toString())
             .withSubject(candidate.getId().toString())
             .withClaim("roles", Arrays.asList("candidate"))
-            .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
+            .withExpiresAt(expires_in)
             .sign(algorithm);
 
-        var authCandidateResponse = AuthCandidateResponseDTO.builder().access_token(token).build();
+        var authCandidateResponse = AuthCandidateResponseDTO.builder()
+            .access_token(token)
+            .expires_in(expires_in.toEpochMilli())
+            .build();
+
         return authCandidateResponse;
     }
 }
