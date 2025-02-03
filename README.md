@@ -30,7 +30,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ``` git clone https://github.com/IgorGMendonca/gestao_vagas.git ```
 
-Configure o banco de dados PostgreSQL utilizando Docker Compose:
+Configure o banco de dados PostgreSQL utilizando Docker Compose: <br>
 ``` docker-compose up -d ```
 
 <br>
