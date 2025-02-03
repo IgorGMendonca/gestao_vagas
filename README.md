@@ -9,10 +9,6 @@
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;
 </p>
 
-<p align="center">
-    <img align="center" src="https://github.com/IgorGMendonca/IgniteQuiz/blob/master/assets/capa.png" alt="capa"/>
-</p>
-
 <br>
 
 ## 🚀 Tecnologias
